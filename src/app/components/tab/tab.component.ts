@@ -1,33 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
+import { Component } from '@angular/core';
 import { AssetsService } from '../../services/assets.service';
+import { IAssetItem } from '../../interfaces/iasset-item.interface';
 
 @Component({
   selector: 'app-tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss']
 })
-export class TabComponent implements OnInit {
-  searchForm: FormGroup;
+export class TabComponent {
+  assetsResult: IAssetItem[];
+  constructor(private _assetsService: AssetsService) {}
 
-  constructor(private _fb: FormBuilder, private _assetsService: AssetsService) {
-    this.searchForm = this._fb.group({
-      keyword: [null]
+  onSubmit(event: any) {
+    this._assetsService.getAssets(event.target.value).subscribe(results => {
+      this.assetsResult = results[0].items;
+      console.log(results[0].items[0].pagemap.cse_thumbnail[0].src);
     });
-  }
-
-  ngOnInit() {}
-
-  onSubmit() {
-    this.searchForm
-      .get('keyword')
-      .valueChanges.pipe(debounceTime(500))
-      .subscribe(val => {
-        this._assetsService.getAssets(val).subscribe(results => {
-          console.log(results);
-          return results;
-        });
-      });
   }
 }

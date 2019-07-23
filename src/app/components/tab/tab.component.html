@@ -1,4 +1,9 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-    <input type="text" placeholder="Search" formControlName="keyword" />
-    <button type="submit">Search</button>
-</form>
+<mat-form-field>
+    <input matInput placeholder="Search" (keyup.enter)="onSubmit($event)">
+</mat-form-field>
+<mat-grid-list cols="4" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let asset of assetsResult">
+        <mat-grid-tile-header>{{asset.title}}</mat-grid-tile-header>
+        {{asset.pagemap.cse_thumbnail[0].src}}
+    </mat-grid-tile>
+</mat-grid-list>
