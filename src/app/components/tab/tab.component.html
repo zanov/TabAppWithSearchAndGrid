@@ -2,8 +2,5 @@
     <input matInput placeholder="Search" (keyup.enter)="onSubmit($event)">
 </mat-form-field>
 <mat-grid-list cols="4" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let asset of assetsResult">
-        <mat-grid-tile-header>{{asset.title}}</mat-grid-tile-header>
-        {{asset.pagemap.cse_thumbnail[0].src}}
-    </mat-grid-tile>
+    <app-asset-item *ngFor="let asset of assetsResult" [assetItemInputs]="asset"></app-asset-item>
 </mat-grid-list>
