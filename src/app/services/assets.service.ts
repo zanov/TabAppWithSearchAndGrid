@@ -12,7 +12,7 @@ export class AssetsService {
 
   constructor(private _http: HttpClient) {}
 
-  getAssets(name: string) {
+  getAssets(name: string): Observable<any> {
     let params = new HttpParams();
     params = params.append('key', this._apiKey);
     params = params.append('cx', this._searchEngineId);
@@ -23,6 +23,7 @@ export class AssetsService {
         params: params
       })
       .pipe(catchError(error => of(error)));
+
     let youTubeApiRequest = this._http
       .get(this._youTubeApiUrl, {
         params: params

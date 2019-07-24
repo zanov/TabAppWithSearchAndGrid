@@ -12,6 +12,7 @@ import { TabComponent } from './components/tab/tab.component';
 import { TabContainerComponent } from './components/tab-container/tab-container.component';
 import { AssetItemComponent } from './components/asset-item/asset-item.component';
 import { AssetsService } from './services/assets.service';
+import { UtilsService } from './services/utils.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { AssetsService } from './services/assets.service';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [HttpParams, AssetsService],
+  providers: [HttpParams, AssetsService, UtilsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

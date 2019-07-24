@@ -8,12 +8,15 @@ import { IAssetItem } from '../../interfaces/iasset-item.interface';
   styleUrls: ['./tab.component.scss']
 })
 export class TabComponent {
-  assetsResult: IAssetItem;
+  assetsResult: IAssetItem[];
   constructor(private _assetsService: AssetsService) {}
 
   onSubmit(event: any) {
     this._assetsService.getAssets(event.target.value).subscribe(results => {
-      this.assetsResult = results[0].items;
+      if (results.success) {
+        this.assetsResult = results;
+        console.log(this.assetsResult);
+      }
     });
   }
 }
