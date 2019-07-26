@@ -25,10 +25,17 @@ export class AssetItemComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.assetItem.Title = this.assetItemInputs.title;
-    this.assetItem.Thumbnail = this.assetItemInputs.pagemap.cse_image
-      ? this.assetItemInputs.pagemap.cse_image[0].src
-      : null;
+    this.setAssetPreoperties(this.assetItemInputs);
+  }
+
+  setAssetPreoperties(assetInputs: any) {
+    this.assetItem.Title =
+      assetInputs.title || assetInputs.snippet.localized.title;
+    if (assetInputs.pagemap) {
+      this.assetItem.Thumbnail = this.assetItemInputs.pagemap.cse_image[0].src;
+    } else if (assetInputs.snippet.thumbnails) {
+      this.assetItem.Thumbnail = this.assetItemInputs.snippet.thumbnails.high.url;
+    }
   }
 
   openModal(): void {
