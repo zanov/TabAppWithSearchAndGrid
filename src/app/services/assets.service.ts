@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { IAssetItem } from '../interfaces/iasset-item.interface';
+import { AdapterService } from './adapter.service';
 
 @Injectable()
 export class AssetsService {
@@ -11,7 +12,10 @@ export class AssetsService {
   private _googleApiUrl: string = 'https://www.googleapis.com/customsearch/v1';
   private _youTubeApiUrl: string = 'https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyDbI73JCc4vVmsSzxL0t6HeEaZ98y2TD28&part=snippet,contentDetails,statistics,status';
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _adapterService: AdapterService
+  ) {}
 
   getAssets(name: string): Observable<any> {
     let params = new HttpParams();
