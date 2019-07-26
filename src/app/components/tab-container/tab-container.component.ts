@@ -6,7 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tab-container.component.scss']
 })
 export class TabContainerComponent implements OnInit {
+  tabs: any = [];
   constructor() {}
 
   ngOnInit() {}
+
+  addTab() {
+    this.tabs.push('Tab');
+  }
+
+  removeTab(index: number) {
+    this.tabs.splice(index, 1);
+  }
 }

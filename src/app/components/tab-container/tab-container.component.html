@@ -1,1 +1,11 @@
-<p>tab-container works!</p>
+<div>
+    <button mat-raised-button class="example-add-tab-button" (click)="addTab()">Add new tab</button>
+</div>
+<mat-tab-group>
+    <mat-tab *ngFor="let tab of tabs; let index = index" [label]="tab">
+        <app-tab></app-tab>
+        <div>
+            <button mat-raised-button class="example-delete-tab-button" (click)="removeTab(index)">Delete this tab</button>
+        </div>
+    </mat-tab>
+</mat-tab-group>

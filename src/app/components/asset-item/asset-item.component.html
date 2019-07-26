@@ -1,4 +1,4 @@
-<mat-grid-tile>
-    <mat-grid-tile-header>{{assetItemInputs.title}}</mat-grid-tile-header>
-    <img src={{assetItemInputs.thumbnail}} />
-</mat-grid-tile>
+<div (click)="openModal()">
+    <mat-grid-tile-header>{{assetItem.Title}}</mat-grid-tile-header>
+    <img src={{assetItem.Thumbnail}} />
+</div>
