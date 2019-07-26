@@ -9,7 +9,7 @@ export class AssetsService {
   private _apiKey: string = 'AIzaSyDbI73JCc4vVmsSzxL0t6HeEaZ98y2TD28';
   private _searchEngineId: string = '003043046789438244932:yhvbny6kqqi';
   private _googleApiUrl: string = 'https://www.googleapis.com/customsearch/v1';
-  private _youTubeApiUrl: string = 'https://swapi.co/api/people/1';
+  private _youTubeApiUrl: string = 'https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyDbI73JCc4vVmsSzxL0t6HeEaZ98y2TD28&part=snippet,contentDetails,statistics,status';
 
   constructor(private _http: HttpClient) {}
 
@@ -26,11 +26,9 @@ export class AssetsService {
       .pipe(catchError(error => of(error)));
 
     let youTubeApiRequest = this._http
-      .get(this._youTubeApiUrl, {
-        params: params
-      })
+      .get(this._youTubeApiUrl)
       .pipe(catchError(error => of(error)));
 
-    return forkJoin([googleApiRequest]);
+    return forkJoin([googleApiRequest, youTubeApiRequest]);
   }
 }
