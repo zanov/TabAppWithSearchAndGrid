@@ -1,21 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { DataModelService } from '../../services/data-model.service';
+import { DataModel } from '../../models/data.model';
 
 @Component({
-  selector: 'app-tab-container',
-  templateUrl: './tab-container.component.html',
-  styleUrls: ['./tab-container.component.scss']
+  selector: "app-tab-container",
+  templateUrl: "./tab-container.component.html",
+  styleUrls: ["./tab-container.component.scss"]
 })
 export class TabContainerComponent implements OnInit {
-  tabs: any = [];
-  constructor() {}
+  tabs: DataModel[] = [];
+  constructor(private dataModelService: DataModelService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.dataModelService.getDataModel().subscribe(res => {
+      this.tabs = res;
+    });
+  }
 
   addTab() {
-    this.tabs.push('Tab');
+    this.dataModelService.addTabToDataModel();
   }
 
   removeTab(index: number) {
-    this.tabs.splice(index, 1);
+    this.dataModelService.removeTabAndData(index);
   }
 }

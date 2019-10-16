@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { TabComponent } from './components/tab/tab.component';
 import { TabContainerComponent } from './components/tab-container/tab-container.component';
 import { AssetItemComponent } from './components/asset-item/asset-item.component';
-import { AssetsService } from './services/assets.service';
 import { AssetModalComponent } from './components/asset-modal/asset-modal.component';
 
 @NgModule({
@@ -33,7 +32,7 @@ import { AssetModalComponent } from './components/asset-modal/asset-modal.compon
     MatDialogModule
   ],
   entryComponents: [AssetModalComponent],
-  providers: [HttpParams, AssetsService],
+  providers: [HttpParams],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

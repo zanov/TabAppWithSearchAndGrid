@@ -11,6 +11,7 @@ import {
 } from '@angular/material/dialog';
 import { IAssetItem } from '../../interfaces/iasset-item.interface';
 import { AssetModalComponent } from '../asset-modal/asset-modal.component';
+import { DataModelService } from '../../services/data-model.service';
 
 @Component({
   selector: 'app-asset-item',
@@ -22,20 +23,33 @@ export class AssetItemComponent implements OnInit {
   @Input() assetItemInputs: any;
   assetItem: IAssetItem = {};
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private dataModel: DataModelService) {}
 
   ngOnInit() {
-    this.setAssetPreoperties(this.assetItemInputs);
+    this.setAssetProperties(this.assetItemInputs);
   }
 
-  setAssetPreoperties(assetInputs: any) {
-    this.assetItem.Title =
-      assetInputs.title || assetInputs.snippet.localized.title;
-    if (assetInputs.pagemap) {
-      this.assetItem.Thumbnail = this.assetItemInputs.pagemap.cse_image[0].src;
-    } else if (assetInputs.snippet.thumbnails) {
-      this.assetItem.Thumbnail = this.assetItemInputs.snippet.thumbnails.high.url;
+  setAssetProperties(assetInputs: any) {
+    let title;
+    if (assetInputs.snippet.title) {
+      title = assetInputs.snippet.title;
+    } else {
+      title = assetInputs.title;
     }
+    this.assetItem = {
+      Title: title,
+      Thumbnail: this.prepareThumbnail(assetInputs)
+    };
+  }
+
+  private prepareThumbnail(assetInputs: any) {
+    let thumb;
+    if (assetInputs.pagemap && assetInputs.pagemap.cse_image) {
+      thumb = assetInputs.pagemap.cse_image[0].src;
+    } else if (assetInputs.snippet.thumbnails) {
+      thumb = assetInputs.snippet.thumbnails.high.url;
+    }
+    return thumb;
   }
 
   openModal(): void {
