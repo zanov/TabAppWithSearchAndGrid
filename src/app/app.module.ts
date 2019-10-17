@@ -7,6 +7,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { AppComponent } from './app.component';
 import { TabComponent } from './components/tab/tab.component';
 import { TabContainerComponent } from './components/tab-container/tab-container.component';
@@ -29,7 +30,8 @@ import { AssetModalComponent } from './components/asset-modal/asset-modal.compon
     MatInputModule,
     MatGridListModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   entryComponents: [AssetModalComponent],
   providers: [HttpParams],

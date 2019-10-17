@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AssetItemComponent } from './asset-item.component';
 
 describe('AssetItemComponent', () => {
@@ -8,9 +7,8 @@ describe('AssetItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AssetItemComponent ]
-    })
-    .compileComponents();
+      declarations: [AssetItemComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -21,13 +19,5 @@ describe('AssetItemComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should recieve data only from input', () => {
-
-  });
-
-  it('should recieve data only as Asset', () => {
-
   });
 });

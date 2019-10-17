@@ -1,5 +1,5 @@
 <div>
-  <button mat-raised-button class="example-add-tab-button" (click)="addTab()">
+  <button mat-raised-button color="primary" (click)="addTab()">
     Add new tab
   </button>
 </div>
@@ -8,11 +8,7 @@
     <ng-template mat-tab-label>Tab{{ index + 1 }}</ng-template>
     <app-tab [tabIndex]="index"></app-tab>
     <div>
-      <button
-        mat-raised-button
-        class="example-delete-tab-button"
-        (click)="removeTab(index)"
-      >
+      <button mat-raised-button color="primary" (click)="removeTab(index)">
         Delete this tab
       </button>
     </div>
