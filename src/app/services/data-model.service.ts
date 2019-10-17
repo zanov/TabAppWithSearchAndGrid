@@ -4,10 +4,9 @@ import { IAssetItem } from '../interfaces/iasset-item.interface';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class DataModelService {
-
   private subject = new BehaviorSubject<any>([]);
   dataModel$: Observable<DataModel[]> = this.subject.asObservable();
 
@@ -51,5 +50,4 @@ export class DataModelService {
   private cloneModelData() {
     return [...this.subject.getValue()];
   }
-
 }

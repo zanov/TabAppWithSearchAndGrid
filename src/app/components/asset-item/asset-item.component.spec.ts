@@ -22,4 +22,12 @@ describe('AssetItemComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should recieve data only from input', () => {
+
+  });
+
+  it('should recieve data only as Asset', () => {
+
+  });
 });

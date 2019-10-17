@@ -3,9 +3,9 @@ import { DataModelService } from '../../services/data-model.service';
 import { DataModel } from '../../models/data.model';
 
 @Component({
-  selector: "app-tab-container",
-  templateUrl: "./tab-container.component.html",
-  styleUrls: ["./tab-container.component.scss"]
+  selector: 'app-tab-container',
+  templateUrl: './tab-container.component.html',
+  styleUrls: ['./tab-container.component.scss']
 })
 export class TabContainerComponent implements OnInit {
   tabs: DataModel[] = [];

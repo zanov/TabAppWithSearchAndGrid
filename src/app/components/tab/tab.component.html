@@ -1,8 +1,8 @@
 <mat-form-field>
-    <input matInput placeholder="Search" (keyup.enter)="onSubmit($event)">
+  <input matInput placeholder="Search" (keyup.enter)="onSubmit($event)" />
 </mat-form-field>
 <mat-grid-list cols="4" rowHeight="2:1" *ngIf="assetsResult.length > 0">
-    <mat-grid-tile *ngFor="let asset of assetsResult">
-        <app-asset-item [assetItemInputs]="asset"></app-asset-item>
-    </mat-grid-tile>
+  <mat-grid-tile *ngFor="let asset of assetsResult">
+    <app-asset-item [assetItemInputs]="asset"></app-asset-item>
+  </mat-grid-tile>
 </mat-grid-list>

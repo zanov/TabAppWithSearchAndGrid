@@ -6,38 +6,55 @@ import { IAssetItem } from '../interfaces/iasset-item.interface';
 import { AdapterService } from './adapter.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AssetsService {
-  private subject = new BehaviorSubject<any>([]);
-  assetsAll$: Observable<any> = this.subject.asObservable();
-  subscription: Subscription;
-  private _apiKey: string = 'AIzaSyDbI73JCc4vVmsSzxL0t6HeEaZ98y2TD28';
-  private _searchEngineId: string = '003043046789438244932:yhvbny6kqqi';
-  private _googleApiUrl: string = 'https://www.googleapis.com/customsearch/v1';
-  private _youTubeApiUrl: string = 'https://www.googleapis.com/youtube/v3/videos?id=7lCDEYXw3mM&key=AIzaSyDbI73JCc4vVmsSzxL0t6HeEaZ98y2TD28&order=date&part=snippet &type=video,id';
+  private googleApiKey = 'AIzaSyDbI73JCc4vVmsSzxL0t6HeEaZ98y2TD28';
+  private googleSearchEngineId = '003043046789438244932:yhvbny6kqqi';
+  private googleApiUrl = 'https://www.googleapis.com/customsearch/v1';
+
+  private youTubeId = '7lCDEYXw3mM';
+  private youTubeKey = 'AIzaSyDbI73JCc4vVmsSzxL0t6HeEaZ98y2TD28';
+  private youTubeApiUrl =
+    'https://www.googleapis.com/youtube/v3/videos?order=date&type=video&part=snippet';
 
   constructor(
-    private _http: HttpClient,
-    private _adapterService: AdapterService
+    private http: HttpClient,
+    private adapterService: AdapterService
   ) {}
 
-  getAssets(name: string): Observable<any> {
-    let params = new HttpParams();
-    params = params.append('key', this._apiKey);
-    params = params.append('cx', this._searchEngineId);
-    params = params.append('q', name);
+  private prepareGoogleParams(name: string) {
+    let paramsGoogle = new HttpParams();
+    paramsGoogle = paramsGoogle.set('key', this.googleApiKey);
+    paramsGoogle = paramsGoogle.set('cx', this.googleSearchEngineId);
+    paramsGoogle = paramsGoogle.set('q', name);
+    return paramsGoogle;
+  }
 
-    const googleApiRequest = this._http
-    .get(this._googleApiUrl, { params: params }).pipe(map((res) => {
-      return res;
-    }));
+  private prepareYouTubeParams(name: string) {
+    let paramsYouTube = new HttpParams();
+    paramsYouTube = paramsYouTube.set('id', this.youTubeId);
+    paramsYouTube = paramsYouTube.set('key', this.youTubeKey);
+    paramsYouTube = paramsYouTube.set('q', name);
+    return paramsYouTube;
+  }
 
-    const youTubeApiRequest = this._http
-    .get(this._youTubeApiUrl).pipe(map((res) => {
-      return res;
-    }));
+  private prepareRequest(apiUrl: string, paramsHttp: HttpParams) {
+    return this.http.get(apiUrl, { params: paramsHttp }).pipe(map(res => res));
+  }
 
-    return forkJoin([googleApiRequest, youTubeApiRequest]);
+  getAssets(name: string): Observable<IAssetItem[]> {
+    const googleApiRequest = this.prepareRequest(
+      this.googleApiUrl,
+      this.prepareGoogleParams(name)
+    );
+    const youTubeApiRequest = this.prepareRequest(
+      this.youTubeApiUrl,
+      this.prepareYouTubeParams(name)
+    );
+
+    return forkJoin([googleApiRequest, youTubeApiRequest])
+      .pipe(map(res => this.adapterService.mapModelToApi(res)))
+      .pipe(catchError(error => of(error)));
   }
 }

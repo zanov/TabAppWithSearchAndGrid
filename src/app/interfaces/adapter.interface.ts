@@ -1,3 +1,3 @@
 export interface IAdapter<T> {
-  mapModelToApi(item: any): T;
+  mapModelToApi(response: any): T[];
 }
